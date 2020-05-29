@@ -9,8 +9,22 @@ type ListNode struct {
 
 func main() {
 	head := ListNode{4, &ListNode{5, nil}}
-	re := swapPairs(&head)
-	fmt.Println(re,re.Next)
+	printList(&head)
+	newList := swapPairs(&head)
+	printList(newList)
+
+	newList = swapPairs(newList)
+	printList(newList)
+	//re := swapPairs(&head)
+
+	//printList(&head)
+}
+
+func printList(l *ListNode) {
+	for l != nil {
+		fmt.Printf("%+v  %p\n", l, l)
+		l = l.Next
+	}
 }
 
 func swapPairs(head *ListNode) *ListNode {
@@ -22,15 +36,14 @@ func swapPairs(head *ListNode) *ListNode {
 
 	for head != nil && head.Next != nil {
 
-		first := head
-		second := head.Next
+		first := head.Next
 
-		prev.Next = second
-		first.Next = second.Next
-		second.Next = first
+		prev.Next = first
+		head.Next = first.Next
+		first.Next = head
 
-		prev = first
-		head = first.Next
+		prev = head
+		head = head.Next
 	}
 
 	return dummy.Next
