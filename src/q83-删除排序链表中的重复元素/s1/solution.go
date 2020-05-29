@@ -26,32 +26,14 @@ func printList(l *ListNode) {
 		l = l.Next
 	}
 }
-
 func deleteDuplicates(head *ListNode) *ListNode {
-	if head == nil {
-		return head
-	}
-	dummy := new(ListNode)
-	dummy.Next = head
-	p1 := dummy
-	p2 := head
-
-	for p2.Next != nil {
-		if p2.Next.Val != p1.Next.Val {
-			p1 = p1.Next
-			p2 = p2.Next
+	cur := head
+	for cur != nil && cur.Next != nil {
+		if cur.Val == cur.Next.Val {
+			cur.Next = cur.Next.Next
 		} else {
-			for p2.Next != nil && p2.Next.Val == p1.Next.Val {
-				p2 = p2.Next
-			}
-			p1.Next = p2.Next
-
-			if p2.Next != nil {
-				p2 = p2.Next
-			}
-
+			cur = cur.Next
 		}
 	}
-	return dummy.Next
-
+	return head
 }
