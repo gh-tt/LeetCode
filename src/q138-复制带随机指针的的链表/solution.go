@@ -45,7 +45,7 @@ func copyRandomList(head *Node) *Node {
 		if q.Random == nil {
 			m[q].Random = nil
 		} else {
-			if m[q].Random == nil {
+			if m[q.Random] == nil {
 				m[q.Random] = &Node{Val: q.Random.Val}
 			}
 			p.Random = m[q.Random]
