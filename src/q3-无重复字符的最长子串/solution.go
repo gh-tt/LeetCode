@@ -9,7 +9,7 @@ func main() {
 }
 
 func lengthOfLongestSubString(s string) int {
-	m := make([]int,128)
+	m := make([]int, 128)
 
 	n := len(s)
 
