@@ -3,33 +3,18 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(romanToInt("MCMXCIV"))
+	fmt.Println(romanToInt("XL"))
 }
 
 func romanToInt(s string) int {
-	values := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
-	symbols := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
-
-	n := len(values)
+	m := map[string]int{"M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1}
 	res := 0
-	for i := 0; i < n; i++ {
-
-		for len(s) >= 2 {
-			if s[:2] == symbols[i] {
-				s = s[2:]
-				res += values[i]
-			} else if s[:1] == symbols[i] {
-
-				s = s[1:]
-				res += values[i]
-			} else {
-				break
-			}
-		}
-
-		if len(s) == 1 && s == symbols[i] {
-			s = s[1:]
-			res += values[i]
+	n := len(s)
+	for k, v := range s {
+		if k < n-1 && m[string(v)] < m[string(s[k+1])] {
+			res -= m[string(v)]
+		} else {
+			res += m[string(v)]
 		}
 	}
 	return res
