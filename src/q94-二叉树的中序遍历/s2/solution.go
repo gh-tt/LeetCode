@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type TreeNode struct {
 	Val   int
@@ -29,21 +31,30 @@ func main() {
 
 */
 func inorderTraversal(root *TreeNode) []int {
-	res := make([]int, 0)
 	if root == nil {
-		return res
+		return nil
 	}
-	stack := make([]*TreeNode, 0)
+	res, stack := make([]int, 0), []*TreeNode{root}
+	m := 0
 	for len(stack) > 0 {
+		m++
 		node := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
-		if node.Right != nil {
-			stack = append(stack, node.Right)
-		}
-
-		if node.Left != nil {
+		if node != nil {
+			if node.Right != nil {
+				stack = append(stack, node.Right)
+			}
 			stack = append(stack, node)
-			stack = append(stack, node.Left)
+			stack = append(stack, nil)
+			if node.Left != nil {
+				stack = append(stack, node.Left)
+			}
+		} else {
+			tmp := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			res = append(res, tmp.Val)
 		}
 	}
+	fmt.Println(m)
+	return res
 }
