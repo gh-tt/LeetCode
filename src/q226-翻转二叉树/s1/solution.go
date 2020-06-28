@@ -12,8 +12,8 @@ func invertTree(root *TreeNode) *TreeNode {
 	}
 	queue := []*TreeNode{root}
 	for len(queue) > 0 {
-		curr := queue[len(queue)-1]
-		queue = queue[:len(queue)-1]
+		curr := queue[0]
+		queue = queue[1:]
 		tmp := curr.Left
 		curr.Left = curr.Right
 		curr.Right = tmp
